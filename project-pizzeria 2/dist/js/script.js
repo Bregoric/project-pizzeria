@@ -164,15 +164,15 @@
             thisProduct.cartButton.addEventListener('click', function(event) {
                 event.preventDefault();
                 thisProduct.processOrder();
+                thisProduct.addToCart();
             });
         }
         processOrder() {
             const thisProduct = this;
             const formData = utils.serializeFormToObject(thisProduct.form);
-            console.log('formData', formData);
+
             // set price to default price
             let price = thisProduct.data.price;
-
             // for every category (param)...
             for (let paramId in thisProduct.data.params) {
                 // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
@@ -210,12 +210,14 @@
 
                     // update calculated price in the HTML
                     /* multiply price by amount */
-                    price *= thisProduct.amountWidget.value;
-                    thisProduct.priceSingle = price;
-                    thisProduct.priceElem.innerHTML = price;
-                    console.log(optionId, option);
                 }
             }
+
+            price *= thisProduct.amountWidget.value;
+            thisProduct.priceSingle = price;
+            thisProduct.priceElem.innerHTML = price;
+
+
 
 
         }
@@ -226,6 +228,27 @@
 
                 thisProduct.processOrder();
             });
+        }
+
+        addToCart() {
+
+            const thisProduct = this;
+            app.cart.add(thisProduct);
+        }
+
+        prepareCartProduct() {
+            const thisProduct = this;
+            const productSummary = {
+                id: thisProduct.id,
+                name: thisProduct.data.name,
+                amount: thisProduct.amountWidget.value,
+                priceSingle: thisProduct.priceSingle,
+                price: thisProduct.priceSingle * thisProduct.amountWidget.value,
+                params: thisProduct.prepareCartProductParams()
+            };
+            return (productSummary);
+
+
         }
     }
 
@@ -308,6 +331,11 @@
                 thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
             });
         }
+
+        add(menuProduct) {
+            // const thisCart = this;
+            console.log('adding product', menuProduct);
+        }
     }
 
     const app = {
@@ -339,7 +367,6 @@
             console.log('templates:', templates);
 
             thisApp.initData(); //inaczej app
-            thisApp.initData();
             thisApp.initMenu(); // app
             thisApp.initCart();
         },
