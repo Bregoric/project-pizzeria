@@ -231,11 +231,7 @@
             });
         }
 
-        addToCart() {
 
-            const thisProduct = this;
-            app.cart.add(thisProduct.prepareCartProductParams());
-        }
 
         prepareCartProduct() {
             const thisProduct = this;
@@ -249,7 +245,11 @@
             };
             return (productSummary);
 
+        }
+        addToCart() {
 
+            const thisProduct = this;
+            app.cart.add(thisProduct.prepareCartProduct());
         }
 
         prepareCartProductParams() {
