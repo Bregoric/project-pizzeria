@@ -77,6 +77,11 @@
             defaultDeliveryFee: 20,
         },
         // CODE ADDED END
+        db: {
+            url: '//localhost:3131',
+            products: 'products',
+            orders: 'orders',
+        },
     };
 
     const templates = {
@@ -274,7 +279,7 @@
                     const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
                     if (optionSelected) {
                         params[paramId].options[optionId] = option.label;
-                        console.log(option.label)
+                        console.log(option.label);
 
                     }
                 }
@@ -289,7 +294,7 @@
         constructor(element) {
             const thisWidget = this;
             thisWidget.getElements(element);
-            thisWidget.setValue(settings.amountWidget.defaultValue);
+            //thisWidget.setValue(settings.amountWidget.defaultValue);
             thisWidget.setValue(thisWidget.input.value || settings.amountWidget.defaultValue);
             thisWidget.initActions();
             // console.log('AmountWidget: ', thisWidget);
@@ -489,7 +494,7 @@
             const thisCartProduct = this;
             thisCartProduct.dom.edit.addEventListener('click', function(event) {
                 event.preventDefault();
-            })
+            });
             thisCartProduct.dom.remove.addEventListener('click', function(event) {
                 event.preventDefault();
                 thisCartProduct.remove();
