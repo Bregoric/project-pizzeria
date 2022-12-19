@@ -21,7 +21,7 @@ const app = {
         thisApp.activatePage(pageMatchingHash);
 
         for (let link of thisApp.navLinks) {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function(event) {
                 const clickedElement = this;
                 event.preventDefault();
                 /* get page id from href attribute */
@@ -55,13 +55,7 @@ const app = {
 
     },
 
-    initBooking: function() {
-        const thisApp = this;
 
-        thisApp.bookingCntr = document.querySelector(select.containerOf.booking);
-        thisApp.booking = new Booking(thisApp.bookingCntr);
-
-    },
 
     initMenu: function() {
         const thisApp = this;

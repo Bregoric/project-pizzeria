@@ -1,129 +1,129 @@
 class BaseWidget {
 
-    constructor(wrapperElement, initialValue) {
+  constructor(wrapperElement, initialValue) {
 
-        const thisWidget = this;
-
-
-
-
-        thisWidget.dom = {};
-
-        thisWidget.dom.wrapper = wrapperElement;
+    const thisWidget = this;
 
 
 
 
-        thisWidget.correctValue = initialValue;
+    thisWidget.dom = {};
 
-    }
-
-
-
-
-    get value() {
-
-        const thisWidget = this;
+    thisWidget.dom.wrapper = wrapperElement;
 
 
 
 
-        return thisWidget.correctValue;
+    thisWidget.correctValue = initialValue;
 
-    }
-
-
-
-
-    set value(value) {
-
-        const thisWidget = this;
-
-        const newValue = thisWidget.parseValue(value);
+  }
 
 
 
 
-        if (newValue != thisWidget.correctValue && thisWidget.isValid(newValue)) {
+  get value() {
 
-            thisWidget.correctValue = newValue;
-
-            thisWidget.announce();
-
-        }
+    const thisWidget = this;
 
 
 
 
-        thisWidget.renderValue();
+    return thisWidget.correctValue;
+
+  }
+
+
+
+
+  set value(value) {
+
+    const thisWidget = this;
+
+    const newValue = thisWidget.parseValue(value);
+
+
+
+
+    if (newValue != thisWidget.correctValue && thisWidget.isValid(newValue)) {
+
+      thisWidget.correctValue = newValue;
+
+      thisWidget.announce();
 
     }
 
 
 
 
-    setValue(value) {
+    thisWidget.renderValue();
 
-        const thisWidget = this;
-
-
-
-
-        thisWidget.value = value;
-
-    }
+  }
 
 
 
 
-    parseValue(value) {
+  setValue(value) {
 
-        return parseInt(value);
-
-    }
+    const thisWidget = this;
 
 
 
 
-    isValid(value) {
+    thisWidget.value = value;
 
-        return !isNaN(value);
-
-    }
+  }
 
 
 
 
-    renderValue() {
+  parseValue(value) {
 
-        const thisWidget = this;
+    return parseInt(value);
 
-
-
-
-        thisWidget.dom.wrapper.innerHTML = thisWidget.value;
-
-    }
+  }
 
 
 
 
-    announce() {
+  isValid(value) {
 
-        const thisWidget = this;
+    return !isNaN(value);
+
+  }
 
 
 
 
-        const event = new CustomEvent('updated', {
+  renderValue() {
 
-            bubbles: true
+    const thisWidget = this;
 
-        });
 
-        thisWidget.dom.wrapper.dispatchEvent(event);
 
-    }
+
+    thisWidget.dom.wrapper.innerHTML = thisWidget.value;
+
+  }
+
+
+
+
+  announce() {
+
+    const thisWidget = this;
+
+
+
+
+    const event = new CustomEvent('updated', {
+
+      bubbles: true
+
+    });
+
+    thisWidget.dom.wrapper.dispatchEvent(event);
+
+  }
 
 
 
